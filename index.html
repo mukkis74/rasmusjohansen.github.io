@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rasmus Johansen – QA/Test Automation</title>
+  <meta name="description" content="Hands-on QA/Test Automation professional. CI/CD in GitLab, GitHub, Jenkins. Docker & Kubernetes. Testing pyramid (Unit, API, UI, Performance, Security) with Allure reporting." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧪</text></svg>">
+  <style>
+    :root{
+      --bg:#0b0c10; --panel:#11131a; --muted:#8a94a6; --text:#e8eefc; --accent:#7aa2ff; --accent-2:#4be1c3; --border:#1c2030;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:linear-gradient(180deg,var(--bg),#0f1220); color:var(--text);}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    /* header */
+    header{position:sticky;top:0;z-index:20;backdrop-filter:saturate(180%) blur(8px);background:rgba(11,12,16,.6);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{font-weight:700;letter-spacing:.2px}
+    .menu{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;gap:8px;align-items:center;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:#0f1322;color:var(--text);cursor:pointer}
+    .btn.ghost{background:transparent}
+    .btn.accent{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#051018;border:0;font-weight:600}
+    .btn.small{padding:6px 10px;border-radius:10px;font-size:.92rem}
+    .icon{width:18px;height:18px;display:inline-block}
+    /* hero */
+    .hero{padding:72px 0}
+    .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:36px}
+    .kicker{display:inline-block;padding:6px 10px;background:rgba(122,162,255,.12);border:1px solid rgba(122,162,255,.25);border-radius:999px;color:var(--accent);font-weight:600;font-size:.9rem}
+    h1{font-size:44px;line-height:1.1;margin:16px 0 10px}
+    .lead{color:var(--muted);font-size:1.15rem}
+    .chipset{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{border:1px solid var(--border);background:#0e1220;padding:6px 10px;border-radius:999px;color:#cdd6f4;font-size:.88rem}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(3,5,10,.35)}
+    .tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .tool h4{margin:0 0 6px;font-size:.82rem;color:#a7b3c9;text-transform:uppercase;letter-spacing:.8px}
+    .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:4px 8px;margin:2px 6px 0 0;font-size:.82rem;color:#d7def0;background:#0c1020}
+    /* sections */
+    section{padding:56px 0}
+    section h2{font-size:32px;margin:0 0 8px}
+    .muted{color:var(--muted)}
+    /* skills grid */
+    .skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .skills .card{min-height:120px}
+    .skills h3{margin:0 0 8px;font-size:1rem}
+    /* pipelines */
+    .pipelines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .pipelines ul{margin:0;padding-left:18px;color:#c0c9da}
+    .pipelines li{margin:7px 0}
+    /* projects */
+    .projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .projects h3{margin:0 0 4px}
+    .links{display:flex;gap:8px;margin-top:10px}
+    /* pyramid */
+    .pyr-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+    .pyr svg text{fill:#dfe7ff}
+    /* footer */
+    footer{border-top:1px solid var(--border);padding:22px 0;color:#9aa6bf}
+    /* responsive */
+    @media (max-width: 980px){
+      .grid,.skills,.pipelines,.projects,.pyr-wrap{grid-template-columns:1fr}
+      h1{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Rasmus Johansen</div>
+      <nav class="menu">
+        <a class="btn ghost small" href="#skills">Skills</a>
+        <a class="btn ghost small" href="#pipelines">CI/CD</a>
+        <a class="btn ghost small" href="#projects">Projects</a>
+        <a class="btn small" href="#pyramid">Pyramid</a>
+        <a class="btn accent small" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <span class="kicker">QA / Test Automation • CI/CD • DevEx</span>
+          <h1>Hands-on QA/Test Automation Professional</h1>
+          <p class="lead">Multi-language background (most recently <b>Python</b>). I design, set up, and maintain <b>CI/CD pipelines</b> in <b>GitLab</b>, <b>GitHub</b>, and <b>Jenkins</b>; build and run <b>containerized workflows</b> with <b>Docker</b> & <b>Kubernetes</b>; and work across the full <b>testing pyramid</b> — unit, API, UI, performance, security — with <b>Allure</b> reporting.</p>
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+            <a class="btn" href="https://www.linkedin.com/in/your-linkedin/" target="_blank" rel="noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8.5 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.02 0 4.76 2.65 4.76 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.4-3.9-2.4 0-2.77 1.87-2.77 3.8V24h-4V8z"/></svg>
+              LinkedIn
+            </a>
+            <a class="btn" href="https://github.com/your-github" target="_blank" rel="noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.85 3.15 8.96 7.5 10.41.55.1.75-.24.75-.53v-1.86c-3.05.66-3.69-1.47-3.69-1.47-.5-1.27-1.22-1.61-1.22-1.61-.99-.67.07-.65.07-.65 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.57 1.19 3.2.9.1-.72.38-1.19.69-1.46-2.44-.28-5-1.22-5-5.44 0-1.2.43-2.18 1.13-2.95-.11-.27-.49-1.36.1-2.83 0 0 .92-.3 3.02 1.13A10.5 10.5 0 0 1 12 6.8c.93 0 1.86.13 2.73.38 2.1-1.43 3.02-1.13 3.02-1.13.6 1.47.22 2.56.11 2.83.7.77 1.12 1.75 1.12 2.95 0 4.23-2.57 5.16-5.01 5.43.39.34.74 1 .74 2.02v3c0 .29.2.63.76.52 4.34-1.44 7.49-5.55 7.49-10.4C23.02 5.24 18.27.5 12 .5z"/></svg>
+              GitHub
+            </a>
+            <a class="btn ghost" href="mailto:rasmus@example.com">Email</a>
+            <a class="btn" href="/cv/Rasmus-Johansen-CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+          </div>
+          <div class="chipset">
+            <span class="chip">CI/CD Orchestrator</span>
+            <span class="chip">Container Native</span>
+            <span class="chip">Full Testing Pyramid</span>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3 style="margin:0 0 10px;display:flex;gap:8px;align-items:center">End-to-End Toolchain</h3>
+            <div class="tools">
+              <div class="tool">
+                <h4>Unit</h4>
+                <span class="badge">JUnit</span><span class="badge">TestNG</span><span class="badge">PyTest</span>
+              </div>
+              <div class="tool">
+                <h4>API</h4>
+                <span class="badge">REST Assured</span><span class="badge">Postman/Newman</span>
+              </div>
+              <div class="tool">
+                <h4>UI & Mobile</h4>
+                <span class="badge">Cypress</span><span class="badge">Playwright</span><span class="badge">Selenium</span><span class="badge">Appium</span>
+              </div>
+              <div class="tool">
+                <h4>Performance</h4>
+                <span class="badge">k6</span><span class="badge">JMeter</span>
+              </div>
+              <div class="tool">
+                <h4>Security</h4>
+                <span class="badge">OWASP ZAP</span><span class="badge">SAST/DAST</span>
+              </div>
+              <div class="tool">
+                <h4>Reporting</h4>
+                <span class="badge">Allure</span><span class="badge">JUnit XML</span>
+              </div>
+              <div class="tool">
+                <h4>Infra</h4>
+                <span class="badge">Docker</span><span class="badge">Kubernetes</span>
+              </div>
+              <div class="tool">
+                <h4>CI/CD</h4>
+                <span class="badge">GitHub Actions</span><span class="badge">GitLab CI</span><span class="badge">Jenkins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2>Skills</h2>
+        <p class="muted">Battle-tested across tooling, platforms, and practices.</p>
+        <div class="skills">
+          <div class="card"><h3>Languages</h3><p class="muted">Python (most recent), Java, JavaScript/TypeScript, Kotlin (basics), Bash</p></div>
+          <div class="card"><h3>Unit / Component</h3><p class="muted">JUnit, TestNG, PyTest</p></div>
+          <div class="card"><h3>API</h3><p class="muted">REST Assured, Postman/Newman</p></div>
+          <div class="card"><h3>UI & Mobile</h3><p class="muted">Cypress, Playwright, Selenium, Appium</p></div>
+          <div class="card"><h3>Performance</h3><p class="muted">k6, JMeter</p></div>
+          <div class="card"><h3>Security</h3><p class="muted">OWASP ZAP, Dependency/Container Scans, SAST/DAST</p></div>
+          <div class="card"><h3>CI/CD & Infra</h3><p class="muted">GitHub Actions, GitLab CI, Jenkins, Docker, Kubernetes</p></div>
+          <div class="card"><h3>Reporting & Observability</h3><p class="muted">Allure, JUnit XML, Grafana/Prometheus (basics), ELK/OpenSearch (basics)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pipelines">
+      <div class="container">
+        <h2>CI/CD Blueprints</h2>
+        <p class="muted">Reusable patterns for GitHub Actions, GitLab CI, and Jenkins.</p>
+        <div class="pipelines">
+          <div class="card">
+            <h3>GitHub Actions</h3>
+            <ul>
+              <li>Matrix builds (OS/Node/Python versions)</li>
+              <li>Parallel test shards and caching</li>
+              <li>Allure results as artifacts + Pages report</li>
+              <li>Docker build/push + K8s deploy (preview envs)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>GitLab CI</h3>
+            <ul>
+              <li>Stages: lint → unit → api → ui → perf → sec → report</li>
+              <li>Reusable templates (YAML anchors) & rules</li>
+              <li>DinD runners & ephemeral namespaces</li>
+              <li>Allure + JUnit reports, MR quality gate</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Jenkins</h3>
+            <ul>
+              <li>Declarative pipelines with shared libs</li>
+              <li>Parallel stages, retry/backoff, post actions</li>
+              <li>SAST/DAST, SBOM, and artifact signing</li>
+              <li>Publish Allure, notify Slack/Teams</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2>Selected Work</h2>
+        <p class="muted">Representative initiatives and blueprints.</p>
+        <div class="projects">
+          <div class="card">
+            <h3>Cross‑stack Test Platform</h3>
+            <p class="muted">Cypress + Playwright + REST Assured + k6 on Kubernetes</p>
+            <ul>
+              <li>Unified test repo with adapters and common utils</li>
+              <li>Containerized runners for deterministic execution</li>
+              <li>GitHub Actions matrix, K8s Jobs, Allure central report</li>
+            </ul>
+            <div class="links">
+              <a class="btn small" href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Security‑in‑CI Blueprint</h3>
+            <p class="muted">OWASP ZAP baseline + dependency scanning</p>
+            <ul>
+              <li>Shift‑left security gates integrated in PR/MR</li>
+              <li>Automated ZAP baseline & active scans on preview envs</li>
+              <li>Risk scoring and actionable findings in reports</li>
+            </ul>
+            <div class="links">
+              <a class="btn small" href="#">Readme</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pyramid">
+      <div class="container pyr-wrap">
+        <div class="card">
+          <h3 style="margin:0 0 8px">Testing Pyramid Strategy</h3>
+          <ul style="margin:0;color:#c0c9da;line-height:1.7">
+            <li><b>Unit</b> (PyTest, JUnit/TestNG): fast feedback, logic correctness, high coverage.</li>
+            <li><b>API</b> (REST Assured, Postman/Newman): contract & integration checks, happy/edge/negative paths.</li>
+            <li><b>UI</b> (Cypress, Playwright, Selenium, Appium): critical journeys + cross‑browser/device smokes.</li>
+            <li><b>Performance</b> (k6, JMeter): baseline SLAs, peak tests, regression of throughput/latency.</li>
+            <li><b>Security</b> (OWASP): ZAP baseline in PRs, scheduled active scans on staging/pre‑prod.</li>
+            <li><b>Reporting</b> (Allure): unified reports per pipeline, flaky tracking, trend charts.</li>
+          </ul>
+        </div>
+        <div>
+          <svg viewBox="0 0 300 260" width="100%" height="100%" aria-label="Testing Pyramid" role="img">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7aa2ff" stop-opacity=".95"/>
+                <stop offset="100%" stop-color="#7aa2ff" stop-opacity=".25"/>
+              </linearGradient>
+            </defs>
+            <polygon points="150,10 270,80 30,80" fill="url(#grad)"/>
+            <polygon points="150,80 290,160 10,160" fill="url(#grad)"/>
+            <polygon points="150,160 300,250 0,250" fill="url(#grad)"/>
+            <g font-size="12" text-anchor="middle" font-weight="700">
+              <text x="150" y="60">UI & Mobile</text>
+              <text x="150" y="135">API</text>
+              <text x="150" y="215">Unit</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Let’s build quality into your flow</h2>
+        <p class="muted">Available for Senior QA / Test Automation leadership and hands‑on roles.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <a class="btn" href="https://www.linkedin.com/in/your-linkedin/" target="_blank" rel="noreferrer">Connect on LinkedIn</a>
+          <a class="btn" href="https://github.com/your-github" target="_blank" rel="noreferrer">View GitHub</a>
+          <a class="btn" href="/cv/Rasmus-Johansen-CV.pdf" target="_blank" rel="noreferrer">Download CV</a>
+          <a class="btn ghost" href="mailto:rasmus@example.com">Email Me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>© <span id="year"></span> Rasmus Johansen</div>
+      <div style="display:flex;gap:8px">
+        <a class="btn ghost small" href="https://www.linkedin.com/in/your-linkedin/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn ghost small" href="https://github.com/your-github" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for in‑page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const id=a.getAttribute('href');
+        const target=document.querySelector(id);
+        if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});} 
+      });
+    });
+    // Current year
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
