@@ -7,8 +7,6 @@
       "outputPath": "reports/jest/html/index.html",
       "pageTitle": "Jest Unit Test Report"
     }],
-    ["allure-jest", {
-      "resultsDir": "reports/jest/allure-results"
-    }]
+    ["allure-jest", { "resultsDir": "reports/jest/allure-results" }]
   ]
 }
