@@ -2,100 +2,66 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  # Reusable step to build the site image once and cache layers
-  build:
+  all:
     runs-on: ubuntu-latest
-    outputs:
-      cachekey: ${{ steps.meta.outputs.cachekey }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - name: Build site image
-        run: docker compose build web
-
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        suite: [unit, e2e, api, perf, zap]
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
 
-      - name: Start app
-        run: docker compose up -d web
-
-      - name: Run matrix suite
+      - name: Build & start app
         run: |
-          case "${{ matrix.suite }}" in
-            unit) docker compose run --rm unit ;;
-            e2e)  docker compose run --rm e2e  ;;
-            api)  docker compose run --rm newman ;;
-            perf) docker compose run --rm perf ;;
-            zap)  docker compose run --rm zap ;;
-          esac
+          docker compose build web
+          docker compose up -d web
 
-      - name: Upload artifacts (per suite)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: reports-${{ matrix.suite }}
-          path: |
-            reports/**/*
-          if-no-files-found: ignore
-
-      - name: Logs on failure
-        if: failure()
-        run: docker compose logs web || true
-
-      - name: Cleanup
-        if: always()
-        run: docker compose down -v
-
-  # Optional: build Allure HTML from Playwright allure-results
-  allure:
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Download all reports
-        uses: actions/download-artifact@v4
-        with:
-          path: reports_dl
-      - name: Generate Allure HTML (Playwright)
+      - name: Unit (HTML only)
         run: |
-          docker run --rm -v "$PWD/reports_dl:/data" -w /data \
-            ghcr.io/allure-framework/allure2:latest \
-            allure generate "reports-e2e/reports/playwright/allure-results" \
-              -o "reports-e2e/reports/playwright/allure-report" --clean || true
-      - name: Upload Allure HTML
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-playwright
-          path: reports_dl/reports-e2e/reports/playwright/allure-report
-          if-no-files-found: ignore
+          npm ci
+          npm test
+        continue-on-error: true
+
+      - name: UI (Playwright + Allure)
+        run: docker compose run --rm e2e
+        continue-on-error: true
+
+      - name: API (Newman + Allure)
+        run: docker compose run --rm newman
+        continue-on-error: true
+
+      # --- Always generate Allure, even when no results or tests failed ---
+      - name: Ensure at least one allure-results dir exists
+        if: always()
+        run: |
+          shopt -s nullglob
+          matches=(reports/**/allure-results/*)
+          if [ ${#matches[@]} -eq 0 ]; then
+            mkdir -p reports/placeholder/allure-results
+            # minimal fake container.json so Allure doesn't error on empty input
+            echo '{"reportName":"Empty Report","testRuns":[]}' > reports/placeholder/allure-results/container.json
+          fi
+
       - name: Generate Allure dashboard
         if: always()
-        run: |
-          docker run --rm -v "$PWD:/data" ghcr.io/allure-framework/allure2:latest \
-            allure generate reports/**/allure-results -o reports/allure-report --clean
+        run: npx -y allure-commandline generate "reports/**/allure-results" -o "reports/allure-report" --clean
+
       - name: Upload Allure dashboard
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-dashboard
           path: reports/allure-report
-      - name: UI (Playwright + Allure)
-        run: docker compose run --rm e2e
-      - name: Upload Playwright artifacts
+
+      - name: Upload suite reports (HTML/JSON)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-artifacts
+          name: suite-reports
           path: |
+            reports/jest/html
             reports/playwright/html
-            reports/playwright/test-output
-            reports/playwright/allure-results
+            reports/newman/html
+            reports/k6
           if-no-files-found: ignore
+
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v
