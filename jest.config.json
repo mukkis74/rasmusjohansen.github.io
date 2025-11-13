@@ -1,0 +1,8 @@
+{
+  "testMatch": ["**/tests/unit/**/*.test.js"],
+  "testEnvironment": "node",
+  "reporters": [
+    "default",
+    ["jest-html-reporter", { "outputPath": "reports/jest/html/index.html", "pageTitle": "Jest Report" }]
+  ]
+}

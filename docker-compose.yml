@@ -1,0 +1,101 @@
+services:
+  web:
+    build: .
+    image: rj/site:local
+    env_file: .env.test
+    ports: ["8080:8080"]
+    healthcheck:
+      test: ["CMD","wget","-qO-","http://localhost:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  # Unit tests (Jest + HTML)
+  unit:
+    image: node:20-alpine
+    depends_on: [web]
+    working_dir: /repo
+    volumes: ["./:/repo"]
+    command: sh -lc "npm ci && npm test"
+
+  # Playwright UI tests (HTML + Allure results)
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.48.0-jammy
+    depends_on:
+      web: { condition: service_healthy }
+    working_dir: /work
+    volumes:
+      - "./tests/e2e:/work"
+      - "./reports/playwright:/work/reports/playwright"
+    environment:
+      BASE_URL: http://web:8080
+    command: ["npx","playwright","test"]
+
+  # Newman + htmlextra (custom image so we have the reporter)
+  newman:
+    build:
+      context: .
+      dockerfile: Dockerfile.newman
+    depends_on:
+      web: { condition: service_healthy }
+    volumes:
+      - "./tests/api:/etc/newman"
+      - "./reports/newman:/reports"
+    command:
+      [
+        "run","/etc/newman/collection.json",
+        "--reporters","cli,htmlextra",
+        "--reporter-htmlextra-export","/reports/index.html",
+        "--env-var","BASE_URL=http://web:8080"
+      ]
+
+  # k6 performance
+  perf:
+    image: grafana/k6
+    depends_on:
+      web: { condition: service_healthy }
+    volumes:
+      - "./tests/perf:/scripts"
+      - "./reports/k6:/reports"
+    environment:
+      BASE_URL: http://web:8080
+    command: ["run","/scripts/loadtest.js","--summary-export=/reports/summary.json"]
+
+  # ZAP baseline (fail on alerts with -m 1)
+  zap:
+    image: owasp/zap2docker-stable
+    depends_on:
+      web: { condition: service_healthy }
+    working_dir: /zap/wrk
+    volumes:
+      - "./reports/zap:/zap/wrk"
+    command:
+      [
+        "zap-baseline.py",
+        "-t","http://web:8080",
+        "-r","zap-report.html",
+        "-m","1"                                # fail the step if alerts >= 1
+      ]
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: app
+      POSTGRES_DB: appdb
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U app"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD","redis-cli","ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
