@@ -1,12 +1,13 @@
 {
   "testMatch": ["**/tests/unit/**/*.test.js"],
   "testEnvironment": "node",
+  "setupFilesAfterEnv": ["@shelex/jest-allure2/dist/setup"],
   "reporters": [
-    "default",
-    ["jest-html-reporter", {
-      "outputPath": "reports/jest/html/index.html",
-      "pageTitle": "Jest Unit Test Report"
-    }],
-    ["allure-jest", { "resultsDir": "reports/jest/allure-results" }]
+    ["jest-html-reporters", {
+      "publicPath": "reports/jest/html",
+      "filename": "index.html",
+      "inlineSource": false,
+      "openReport": false
+    }]
   ]
 }
