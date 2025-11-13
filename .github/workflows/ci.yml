@@ -76,3 +76,15 @@ jobs:
           name: allure-playwright
           path: reports_dl/reports-e2e/reports/playwright/allure-report
           if-no-files-found: ignore
+      - name: Generate Allure dashboard
+        if: always()
+        run: |
+          docker run --rm -v "$PWD:/data" ghcr.io/allure-framework/allure2:latest \
+            allure generate reports/**/allure-results -o reports/allure-report --clean
+      - name: Upload Allure dashboard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-dashboard
+          path: reports/allure-report
+
