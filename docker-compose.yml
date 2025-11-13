@@ -60,19 +60,23 @@ services:
 
   # ZAP baseline (fail on alerts with -m 1)
   zap:
-    image: owasp/zap2docker-stable
+    image: ghcr.io/zaproxy/zaproxy:stable
     depends_on:
       web: { condition: service_healthy }
     working_dir: /zap/wrk
     volumes:
       - "./reports/zap:/zap/wrk"
-    command:
-      [
-        "zap-baseline.py",
-        "-t","http://web:8080",
-        "-r","zap-report.html",
-        "-m","1"                                # fail the step if alerts >= 1
-      ]
+    command: ["zap-baseline.py","-t","http://web:8080","-r","zap-report.html","-m","1"]
+
+  zap-full:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    depends_on:
+      web: { condition: service_healthy }
+    working_dir: /zap/wrk
+    volumes:
+      - "./reports/zap:/zap/wrk"
+    command: ["zap-full-scan.py","-t","http://web:8080","-r","zap-full-report.html","-m","1"]
+
   postgres:
     image: postgres:16
     environment:
