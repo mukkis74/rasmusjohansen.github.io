@@ -13,6 +13,22 @@
     "jest-html-reporter": "^3.10.2"
   },
   "dependencies": {
-    "express": "^4.19.2"
-  }
+    "express": "^4.21.2"
+  },
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukkis74/rasmusjohansen.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukkis74/rasmusjohansen.github.io/issues"
+  },
+  "homepage": "https://github.com/mukkis74/rasmusjohansen.github.io#readme"
 }
