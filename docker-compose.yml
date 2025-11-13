@@ -21,15 +21,13 @@ services:
   # Playwright UI tests (HTML + Allure results)
   e2e:
     image: mcr.microsoft.com/playwright:v1.48.0-jammy
-    depends_on:
-      web: { condition: service_healthy }
+    depends_on: { web: { condition: service_healthy } }
     working_dir: /work
     volumes:
       - "./tests/e2e:/work"
       - "./reports/playwright:/work/reports/playwright"
-    environment:
-      BASE_URL: http://web:8080
-    command: ["npx","playwright","test"]
+    environment: { BASE_URL: http://web:8080 }
+    command: ["npx","playwright","test","--config","/work/playwright.config.ts"]
 
   # Newman + htmlextra (custom image so we have the reporter)
   newman:
