@@ -87,3 +87,15 @@ jobs:
         with:
           name: allure-dashboard
           path: reports/allure-report
+      - name: UI (Playwright + Allure)
+        run: docker compose run --rm e2e
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: |
+            reports/playwright/html
+            reports/playwright/test-output
+            reports/playwright/allure-results
+          if-no-files-found: ignore
