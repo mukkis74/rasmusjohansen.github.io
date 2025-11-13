@@ -44,8 +44,9 @@ services:
     command:
       [
         "run","/etc/newman/collection.json",
-        "--reporters","cli,htmlextra",
-        "--reporter-htmlextra-export","/reports/index.html",
+        "--reporters","cli,htmlextra,allure",
+        "--reporter-htmlextra-export","/reports/html/index.html",
+        "--reporter-allure-export","/reports/allure-results",
         "--env-var","BASE_URL=http://web:8080"
       ]
 

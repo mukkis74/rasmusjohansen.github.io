@@ -9,6 +9,10 @@ WORKDIR /site
 COPY package.json package-lock.json* ./
 RUN [ -f package.json ] && npm ci --omit=dev || true
 
+# Add Allure to Newman (Postman API Tests)
+FROM postman/newman:alpine
+RUN npm install -g newman-reporter-htmlextra newman-reporter-allure
+
 # 3) Copy the rest of your project
 COPY . .
 
