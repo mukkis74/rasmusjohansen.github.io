@@ -10,7 +10,7 @@ services:
 
   # Unit tests (Jest + HTML)
   unit:
-    image: node:20-alpine
+    image: node:22-alpine
     depends_on: [web]
     working_dir: /repo
     volumes: ["./:/repo"]
